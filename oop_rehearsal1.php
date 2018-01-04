@@ -3,7 +3,7 @@
 * Vertekkende van een abstract class runner met een functie voor het vrijgeven van een `property` birthYear
 * is het doel van deze oefening om data te verdelen tussen `classen`. Daarna zijn er methods opgenomen
 * voor het verwerkenen en de class uit te breiden met properties. Voor $runnersData is met json_decode
-* de data niet als array gezet. Zo kan eerste de eerste 'naam' onafhankelijk gelezen worden.
+* de data niet als array gezet door true weg te laten. Zo kan de eerste 'naam' onafhankelijk gelezen worden.
 */
 $runnersJsonFile = file_get_contents(__DIR__ . "/runnersData.json");
 $runnersData = json_decode($runnersJsonFile);
@@ -35,7 +35,8 @@ abstract class runner
 }
 
 /*
-* Met een implementatie van priceInterface kunnen
+* Met een implementatie van priceInterface kan de prijs na initiatie toegevoegd worden.
+* Verder kan de prijs en een notificatie opgehaald worden.
 */
 interface priceInterface
 {
@@ -45,8 +46,8 @@ interface priceInterface
 }
 
 /**
-* Vanuit runnerContestData.json aan array ophalen om deze als eigenschappen
-* te verwerken in class runnerContest.
+* Vanuit runnerContestData.json gaat `associative array` opgehaald worden om deze als 
+* eigenschappen te verwerken in class runnerContest.
 */
 $runnersJsonFile = file_get_contents(__DIR__ . "/runnersContestData.json");
 $contestData = json_decode($runnersJsonFile, true);
@@ -67,7 +68,7 @@ class runnerContest extends runner implements priceInterface
             }
         }
         /*
-        * Uit class runner met functie get_birthYear de `private property` $birthYear opgehaald worden.
+        * Uit class runner met functie get_birthYear de `property` $birthYear opgehaald worden.
         * Met functie getCategory in class runnersComplementedData is juiste category gefilterd
         * om als property van deze class toe te voegen.
         */
@@ -122,7 +123,9 @@ class runnersComplementedData
     }
 }
 
-
+/*
+* Eerst een ruwe output ter referentie.
+*/
 $runner1 = new runnerContest($contestData, $runnerProperties[0]);
 echo('<hr>');
 var_dump($runner1);
@@ -136,6 +139,12 @@ echo($runner1->alertPrice());
 echo('<hr>');
 
 
+/*
+* Om een kleine uitwerking te verzorgen voor de weergave op verschillende manieren heb ik
+* class runnerView klaargezet. Via het doorgeven van argumenten kunnen ui diverse objecten
+* gegevens in de browser vertoont worden. Ter oefening is binnen functie outputTable
+* een object omgezet in een multidimensional array.
+*/
 class runnerView extends runnerContest
 {
     private $price;
