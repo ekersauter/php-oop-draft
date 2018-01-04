@@ -161,7 +161,7 @@ class runnerView extends runnerContest
 
     public function outputDiv($id)
     {
-        $html = '<p></p><div id="'.$id.'">'.$this->getInfo().'</div>';
+        $html = '<p></p><div id="'.$id.'">Div met id: '.$id.'</div>';
         return $html;
     }
 
